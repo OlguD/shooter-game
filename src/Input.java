@@ -1,8 +1,15 @@
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class Input implements KeyListener {
+public class Input implements KeyListener, MouseMotionListener, MouseListener {
     public boolean up, down, left, right;
+    public int mouseX, mouseY;
+    public boolean shooting;
+    public boolean damageKey;
+
 
     @Override
     public void keyPressed(KeyEvent e) {
@@ -17,6 +24,37 @@ public class Input implements KeyListener {
     @Override
     public void keyTyped(KeyEvent e) {}
 
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
+    }
+
+    @Override 
+    public void mouseDragged(MouseEvent e) {
+        mouseX = e.getX();
+        mouseY = e.getY();
+    }
+
+    @Override 
+    public void mousePressed(MouseEvent e) {
+        shooting = true;
+    }
+
+    @Override 
+    public void mouseReleased(MouseEvent e) {
+        shooting = false;
+    }
+
+    @Override 
+    public void mouseClicked(MouseEvent e) {}
+
+    @Override 
+    public void mouseEntered(MouseEvent e) {}
+
+    @Override 
+    public void mouseExited(MouseEvent e) {}
+
     // Basma ve bırakma aynı mantık, sadece değer farklı
     private void setKey(int key, boolean pressed) {
         switch (key) {
@@ -24,39 +62,7 @@ public class Input implements KeyListener {
             case KeyEvent.VK_S -> down = pressed;
             case KeyEvent.VK_A -> left = pressed;
             case KeyEvent.VK_D -> right = pressed;
+            case KeyEvent.VK_H -> damageKey = pressed;
         }
     }
 }
-
-// @Override
-//     public void keyPressed(KeyEvent e) {
-//         int key = e.getKeyCode();
-//         if (key == KeyEvent.VK_A) {
-//             left = true;
-//         } else if (key == KeyEvent.VK_D) {
-//             right = true;
-//         } else if (key == KeyEvent.VK_W) {
-//             up = true;
-//         } else if (key == KeyEvent.VK_S) {
-//             down = true;
-//         }
-
-//     }
-//     @Override 
-//     public void keyReleased(KeyEvent e) {
-//         int key = e.getKeyCode();
-//         if (key == KeyEvent.VK_A) {
-//             left = false;
-//         } else if (key == KeyEvent.VK_D) {
-//             right = false;
-//         } else if (key == KeyEvent.VK_W) {
-//             up = false;
-//         } else if (key == KeyEvent.VK_S) {
-//             down = false;
-//         }
-//     }
-
-//     @Override 
-//     public void keyTyped(KeyEvent e) {
-//         // No action needed on key typed for now
-//     } 
